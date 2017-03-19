@@ -25,9 +25,10 @@ router.get ('/:id', function (req, res) {
     })
 })
 
-router.post ('/addUser', function (req, res) {
+router.post ('/', function (req, res) {
   var knex = req.app.get('knex')
-  var user = req.query
+  var user = req.body
+  console.log(user)
   db.addUser(user, knex)
     .then(function (users) {
       res.send({users})
