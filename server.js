@@ -10,6 +10,7 @@ var users = require('./routes/users')
 var server = express()
 
 server.set('knex', knex)
+
 module.exports = server
 
 // Middleware
@@ -17,4 +18,3 @@ server.use(bodyParser.urlencoded({ extended: true }))
 
 // Routes
 server.use('/users', users)
-
