@@ -27,14 +27,20 @@ router.get ('/:id', function (req, res) {
 
 router.post ('/', function (req, res) {
   var knex = req.app.get('knex')
+  db.addUser(req.body, knex)
+    .then(function (results) {
+    res.status(201).json(results[0])
+  })
+})
+
+router.put('/:id', function (req, res) {
+  var id = req.params.id
+  console.log('here', id);
   var user = req.body
-  console.log(user)
-  db.addUser(user, knex)
-    .then(function (users) {
-      res.send({users})
-    })
-    .catch(function (err) {
-      res.status(500).send('DATABASE ERROR: ' + err.message)
+  var knex = req.app.get('knex')
+  db.updateUser(id, user, knex)
+    .then(function (update) {
+      res.status(200).json(update[0])
     })
 })
 

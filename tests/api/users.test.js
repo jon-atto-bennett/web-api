@@ -39,13 +39,24 @@ test.cb('getUser gets user by id', function (t) {
 
 test.cb('addUser adds a new user', function (t) {
   request(app)
-    .post('/users/')
+    .post('/users')
     .send({name: 'Nemo' , email: 'nemo@thesea.com'})
-    .expect('Content-Type', /json/)
-    .expect(200)
     .end(function(err, res) {
       if (err) throw err
-      t.is(1, res.body.users.length)
+      t.is(res.status, 201)
+      t.not(res.body, '')
       t.end()
     })
+})
+
+test.cb('updateUser updates user by ID', function (t){
+  console.log('test');
+  request(app)
+  .put('/users/99916')
+  .send({name:'Harry Hedgehog', email:'spiky@email.com'})
+  .end(function(err, res){
+    if (err) throw err
+    t.is(res.status, 200)
+    t.end()
+  })
 })
